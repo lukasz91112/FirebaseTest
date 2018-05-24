@@ -18,18 +18,20 @@ namespace FirebaseTest
             await repo.GetDataAsync();
             var name = FindViewById<EditText>(Resource.Id.editTextName);
             var surname = FindViewById<EditText>(Resource.Id.editTextSurname);
-            var button = FindViewById<Button>(Resource.Id.buttonAddUser);
+            var addButton = FindViewById<Button>(Resource.Id.buttonAddUser);
+            var readButton = FindViewById<Button>(Resource.Id.buttonReadUsers);
             await repo.GetDataAsync();
-            button.Click += async delegate (object sender, System.EventArgs e)
+            addButton.Click += async delegate (object sender, System.EventArgs e)
             {
-                Console.WriteLine("Click");
+                Console.WriteLine("Click Add");
+                await repo.PostDataAsync(name.Text, surname.Text);
+            };
+
+            readButton.Click += async delegate (object sender, System.EventArgs e)
+            {
+                Console.WriteLine("Click Read");
                 await repo.GetDataAsync();
             };
-            
-            
-            
-            // Set our view from the "main" layout resource
-            
         }
     }
 }
